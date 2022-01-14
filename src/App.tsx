@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FC, ReactElement } from 'react';
 
-function App() {
+// styles
+import './App.css';
+import { Button } from '@material-ui/core';
+
+
+const App: FC = (): ReactElement => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>Hockey Scout Application</h1>
+      <h3>Record a new game</h3>
+      <p>Go to a game with 2 teams to judge players</p>
+      <p>Add team names, date, league, age group</p>
+      <p>Then you can add players info as you see them</p>
+      <p>As you add data it will populate players with similar stats so you can compare them to ensure their is consistency</p>
+      <Button color='primary' variant='contained'>
+        Record A New Game
+      </Button>
+      <h3>See all data collected</h3>
+      <p>Filter by player, team, league, date, age, group, rating etc.</p>
+      <p>View individual players and see all of their stats visualized</p>
+      <p>Comparison tool between players of similar stats</p>
+      <Button color='primary' variant='contained'>
+        View Data
+      </Button>
+    </>
   );
 }
 
