@@ -1,14 +1,29 @@
-import { FC, ReactElement } from 'react';
+import { FC } from 'react';
+import { Navigate, Routes, Route } from 'react-router-dom';
 
 // styles
 import './App.css';
 import { Button } from '@material-ui/core';
 
+const App: FC = (): JSX.Element => {
+  return (
+    <>
+        <Routes>
+          <Route path ='/' element={<Home />} />
+        </Routes>
+    </>
+  );
+}
 
-const App: FC = (): ReactElement => {
+const Home: FC = (): JSX.Element => {
   return (
     <>
       <h1>Hockey Scout Application</h1>
+      <h3>Sign In Page</h3>
+      <p>Basic sign in page no frills</p>
+      <h3>Dashboard</h3>
+      <p>what does it look like?</p>
+      
       <h3>Record a new game</h3>
       <p>Go to a game with 2 teams to judge players</p>
       <p>Add team names, date, league, age group</p>
@@ -25,7 +40,8 @@ const App: FC = (): ReactElement => {
         View Data
       </Button>
     </>
-  );
+  )
 }
+
 
 export default App;
