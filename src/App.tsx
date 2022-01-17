@@ -1,5 +1,11 @@
 import { FC } from 'react';
-import { Navigate, Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
+
+// pages
+import Login from 'pages/login';
+
+// features
+import TemporaryDrawer from 'features/drawer';
 
 // styles
 import './App.css';
@@ -9,21 +15,50 @@ const App: FC = (): JSX.Element => {
   return (
     <>
         <Routes>
-          <Route path ='/' element={<Home />} />
+          <Route path ='/' element={<Login />} />
+          <Route path ='/dashboard' element={<Dashboard />} />
         </Routes>
     </>
   );
 }
 
-const Home: FC = (): JSX.Element => {
+
+const Dashboard: FC = (): JSX.Element => {
   return (
     <>
+      <TemporaryDrawer />
       <h1>Hockey Scout Application</h1>
-      <h3>Sign In Page</h3>
-      <p>Basic sign in page no frills</p>
       <h3>Dashboard</h3>
       <p>what does it look like?</p>
-      
+      <p>Navbar</p>
+      <ul>
+        <li>
+          Home
+        </li>
+        <li>
+          Scouting
+        </li>
+        <ul>
+          <li>
+            Leagues
+          </li>
+          <li>
+            Teams
+          </li>
+          <li>
+            Games
+          </li>
+          <li>
+            Players
+          </li>
+        </ul>
+        <li>
+          Scout Chat
+        </li>
+        <li>
+          Contacts
+        </li>
+      </ul>
       <h3>Record a new game</h3>
       <p>Go to a game with 2 teams to judge players</p>
       <p>Add team names, date, league, age group</p>
@@ -39,9 +74,24 @@ const Home: FC = (): JSX.Element => {
       <Button color='primary' variant='contained'>
         View Data
       </Button>
+      <br />
+      <Button
+        component={Link}
+        to ='/'
+        color='primary' 
+        variant='contained'
+        style={{
+          marginTop: 5
+        }}
+      >
+        Back Home
+      </Button>
     </>
   )
 }
 
 
-export default App;
+export {
+  App,
+  Dashboard
+}
