@@ -1,19 +1,22 @@
-import * as React from 'react';
-import Box from '@material-ui/core/Box';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import React from 'react';
 
-export default function TemporaryDrawer() {
-  const [state, setState] = React.useState(false);
+// styles
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+// import InboxIcon from '@mui/icons/MoveToInbox';
+// import MailIcon from '@mui/icons/Mail';
 
-  const toggleDrawer = (): void => setState(!state);
+interface Props {
+  state: boolean;
+  toggleDrawer: Function;
+}
+
+const SideDrawer: React.FC<Props> = ({ state, toggleDrawer }: Props): JSX.Element => {
 
   const list = (): JSX.Element => (
     <Box
@@ -25,7 +28,7 @@ export default function TemporaryDrawer() {
         {['Settings', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              {index % 2 === 0 ? <h1>one</h1> : <h1>two</h1>}
             </ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
@@ -36,7 +39,7 @@ export default function TemporaryDrawer() {
         {['All MailIcon', 'Trash', 'Spam'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              {index % 2 === 0 ? <h1>one</h1> : <h1>two</h1>}
             </ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
@@ -46,14 +49,15 @@ export default function TemporaryDrawer() {
   );
 
   return (
-    <div>
-        <Button onClick={() => toggleDrawer()}>{'Drawer'}</Button>
-        <Drawer
-            open={state}
-            onClose={() => toggleDrawer()}
-        >
+    <>
+      <Drawer
+        open={state}
+        onClose={() => toggleDrawer()}
+      >
         {list()}
-        </Drawer>
-    </div>
+      </Drawer>
+    </>
   );
-}
+};
+
+export default SideDrawer; 
