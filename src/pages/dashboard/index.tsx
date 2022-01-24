@@ -1,75 +1,52 @@
 import React from 'react';
 
 // components
-import BasicCard from 'components/card';
+// import BasicCard from 'components/card';
 
 // features
 import NavBar from 'features/navbar';
 
 // styles
-// import { styles } from './styles';
-import { withStyles } from '@mui/styles'; 
-import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 
-const styles = {
-    root: {
-      flexGrow: 1,
-    },
-    externalGrid: {
-      margin: '1rem'
-    },
-    internalGrid: {
-      color: 'blue'
-    },
-    paper: {
-      padding: '1rem',
-      color: 'black',
-    },
-  };
+const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    margin: theme.spacing(3),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
 
-interface Props {
-    classes: {
-        root: any;
-        externalGrid: any;
-        internalGrid: any;
-        paper: any;
-    }
-}
-
-const Dashboard: React.FC<Props> = ({ classes }: Props) => {
+const Dashboard: React.FC = () => {
 
     return (
         <>
             <NavBar />
-            <div className={classes.root}>
-                <Grid className={classes.externalGrid} spacing={3} container>
-                    <Grid className={classes.internalGrid} item lg={4} md={4} sm={4} xs={12}>
-                        <Paper className={classes.paper}>
-                            <Grid className='' item>
-                                <Typography>
-                                    Thing
-                                </Typography>
-                            </Grid>
-                        </Paper>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} spacing={{ xs: 2, sm: 1, md: 1 }} columns={{ xs: 4, sm: 12, md: 12 }}>
+                    <Grid item xs={3} sm={4} md={4}>
+                        <Item>big</Item>
                     </Grid>
-                    <Grid className={classes.internalGrid} item lg={7} md={7} sm={7} xs={12}>
-                        <Paper className={classes.paper}>
-                            <Grid className='' item >
-                                <Typography>
-                                    Thing2
-                                </Typography>
-                                <BasicCard />
-                            </Grid>
-                        </Paper>
+                    <Grid item xs={3} sm={8} md={8}>
+                        <Item>big</Item>
                     </Grid>
                 </Grid>
-            </div>
+                {/* <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                    {
+                        Array.from(Array(1)).map((_, index) => (
+                            <Grid hidden={false} item xs={2} sm={4} md={4} key={index + 34}>
+                                <Item>xs=2</Item>
+                            </Grid>
+                        ))
+                    }
+                </Grid> */}
+            </Box>
         </>
     )
 
 }
 
-export default withStyles(styles)(Dashboard);
+export default Dashboard;

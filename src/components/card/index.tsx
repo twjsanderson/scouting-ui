@@ -17,7 +17,7 @@ const bull = (
 
 const BasicCard = () => {
   return (
-    <Card sx={{ minWidth: 100, maxWidth: 100 }}>
+    <Card sx={{ minWidth: 200, maxWidth: 200 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           Word of the Day
