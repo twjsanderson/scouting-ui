@@ -1,1 +1,5 @@
-export const thing = 0;
+export const styles = {
+    box: {
+        margin: '1rem'
+    }
+}
