@@ -17,7 +17,7 @@ import Grid from '@mui/material/Grid';
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
-    margin: theme.spacing(1),
+    margin: theme.spacing(2),
     textAlign: 'center',
     color: 'blue'
 }));
@@ -47,30 +47,30 @@ const Dashboard: React.FC<Props> = ({ classes }: Props): JSX.Element => {
                     </Grid>
                     {/* Apps */}
                     <Grid item xs={12} sm={7} md={8}>
-                        <Grid container justifyContent="center">
-                            <Grid item xs={12} sm={6} md={5}>
-                                <Paper>
+                        <Paper>
+                            <Grid container direction='row'>
+                                <Grid item>
                                     <Item>
                                         Record a Game
                                     </Item>
-                                </Paper>
-                            </Grid>
-                            <Grid item xs={12} sm={6} md={5}>
-                                <Paper>
+                                </Grid>
+                                <Grid item>
+                                    <Item>Record a Game</Item>
+                                </Grid>
+                                <Grid item>
+                                    <Item>Record a Game</Item>
+                                </Grid>
+                                {/* <Grid item xs={12} sm={6} md={5}>
                                     <Item>Apps Section</Item>
-                                </Paper>
-                            </Grid>
-                            <Grid item xs={12} sm={6} md={5}>
-                                <Paper>
+                                </Grid>
+                                <Grid item xs={12} sm={6} md={5}>
                                     <Item>Apps Section</Item>
-                                </Paper>
-                            </Grid>
-                            <Grid item xs={12} sm={6} md={5}>
-                                <Paper>
+                                </Grid>
+                                <Grid item xs={12} sm={6} md={5}>
                                     <Item>Apps Section</Item>
-                                </Paper>
+                                </Grid> */}
                             </Grid>
-                        </Grid>
+                        </Paper>
                     </Grid>
                 </Grid>
                 {/* <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
