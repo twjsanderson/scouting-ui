@@ -8,8 +8,7 @@ import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-// import InboxIcon from '@mui/icons/MoveToInbox';
-// import MailIcon from '@mui/icons/Mail';
+import MailIcon from '@mui/icons-material/Mail';
 
 interface Props {
   state: boolean;
@@ -25,10 +24,10 @@ const SideDrawer: React.FC<Props> = ({ state, toggleDrawer }: Props): JSX.Elemen
       onKeyDown={() => toggleDrawer()}
     >
       <List>
-        {['Settings', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        {['Profile', 'Calendar'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
-              {index % 2 === 0 ? <h1>one</h1> : <h1>two</h1>}
+              <MailIcon />
             </ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
@@ -36,10 +35,10 @@ const SideDrawer: React.FC<Props> = ({ state, toggleDrawer }: Props): JSX.Elemen
       </List>
       <Divider />
       <List>
-        {['All MailIcon', 'Trash', 'Spam'].map((text, index) => (
+        {['Settings', 'Billing', 'Support'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
-              {index % 2 === 0 ? <h1>one</h1> : <h1>two</h1>}
+              <MailIcon />
             </ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>

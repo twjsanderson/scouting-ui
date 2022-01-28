@@ -8,7 +8,6 @@ import NavBar from 'features/navbar';
 
 // styles
 import { styles } from './styles';
-import { withStyles } from '@mui/styles'; 
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -16,76 +15,92 @@ import Grid from '@mui/material/Grid';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
-    padding: theme.spacing(1),
+    padding: theme.spacing(3),
     margin: theme.spacing(2),
     textAlign: 'center',
-    color: 'blue'
+    color: 'black',
+    width: '8rem'
 }));
 
-interface Props {
-    classes: {
-        box: any;
-    }
-}
-
-const Dashboard: React.FC<Props> = ({ classes }: Props): JSX.Element => {
-
+const Dashboard: React.FC = (): JSX.Element => {
     return (
         <>
             <NavBar />
-            <Box sx={{ flexGrow: 1}} className={classes.box}>
-                <Grid container justifyContent="center">
+            <Box sx={styles.box}>
+                <Grid container justifyContent='center'>
                     {/* CTA */}
                     <Grid item xs={12} sm={5} md={4}>
-                        <Grid container justifyContent="center">
-                            <Grid item xs={12} sm={12} md={12}>
-                                <Paper>
-                                    <Item>CTA</Item>
-                                </Paper>
+                        <Paper sx={styles.paper}>
+                            <Grid container direction='column'>
+                                <Grid item>
+                                    <Item>
+                                        DISPLAY CONTAINER
+                                    </Item>
+                                </Grid>
                             </Grid>
-                        </Grid>
+                        </Paper>
                     </Grid>
                     {/* Apps */}
                     <Grid item xs={12} sm={7} md={8}>
-                        <Paper>
+                        <Paper sx={styles.paper}>
                             <Grid container direction='row'>
                                 <Grid item>
-                                    <Item>
-                                        Record a Game
+                                    <Item sx={styles.actionItem}>
+                                        Record Game
                                     </Item>
                                 </Grid>
                                 <Grid item>
-                                    <Item>Record a Game</Item>
+                                    <Item sx={styles.actionItem}>
+                                        Add Player
+                                    </Item>
                                 </Grid>
                                 <Grid item>
-                                    <Item>Record a Game</Item>
+                                    <Item sx={styles.infoItem}>
+                                        Games
+                                    </Item>
                                 </Grid>
-                                {/* <Grid item xs={12} sm={6} md={5}>
-                                    <Item>Apps Section</Item>
+                                <Grid item>
+                                    <Item sx={styles.infoItem}>
+                                        Leagues
+                                    </Item>
                                 </Grid>
-                                <Grid item xs={12} sm={6} md={5}>
-                                    <Item>Apps Section</Item>
+                                <Grid item>
+                                    <Item sx={styles.infoItem}>
+                                        Teams
+                                    </Item>
                                 </Grid>
-                                <Grid item xs={12} sm={6} md={5}>
-                                    <Item>Apps Section</Item>
-                                </Grid> */}
+                                <Grid item>
+                                    <Item sx={styles.infoItem}>
+                                        Players
+                                    </Item>
+                                </Grid>
+                                <Grid item>
+                                    <Item sx={styles.scoutItem}>
+                                        Reports
+                                    </Item>
+                                </Grid>
+                                <Grid item>
+                                    <Item sx={styles.scoutItem}>
+                                        Chat
+                                    </Item>
+                                </Grid>
+                                <Grid item>
+                                    <Item sx={styles.scoutItem}>
+                                        Calendar
+                                    </Item>
+                                </Grid>
+                                <Grid item>
+                                    <Item sx={styles.managementItem}>
+                                        Scout Management
+                                    </Item>
+                                </Grid>
                             </Grid>
                         </Paper>
                     </Grid>
                 </Grid>
-                {/* <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                    {
-                        Array.from(Array(1)).map((_, index) => (
-                            <Grid hidden={false} item xs={2} sm={4} md={4} key={index + 34}>
-                                <Item>xs=2</Item>
-                            </Grid>
-                        ))
-                    }
-                </Grid> */}
             </Box>
         </>
-    )
+    );
+};
 
-}
-
-export default withStyles(styles)(Dashboard);
+export default Dashboard;
