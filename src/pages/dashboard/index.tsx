@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // components
 // import BasicCard from 'components/card';
@@ -12,6 +13,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -33,9 +35,9 @@ const Dashboard: React.FC = (): JSX.Element => {
                         <Paper sx={styles.paper}>
                             <Grid container direction='column'>
                                 <Grid item>
-                                    <Item>
-                                        DISPLAY CONTAINER
-                                    </Item>
+                                    {/* <Item sx={styles.heroTitle}> */}
+                                        <h3>Organization Name(max char)</h3>
+                                    {/* </Item> */}
                                 </Grid>
                             </Grid>
                         </Paper>
@@ -45,18 +47,35 @@ const Dashboard: React.FC = (): JSX.Element => {
                         <Paper sx={styles.paper}>
                             <Grid container direction='row'>
                                 <Grid item>
-                                    <Item sx={styles.actionItem}>
-                                        Record Game
+                                    <Item  
+                                        sx={styles.actionItem}
+                                    >
+                                        <Button
+                                            component={Link} 
+                                            to='/recordgame'
+                                        >
+                                            Record Game
+                                        </Button>
                                     </Item>
                                 </Grid>
                                 <Grid item>
                                     <Item sx={styles.actionItem}>
-                                        Add Player
+                                        <Button
+                                            component={Link} 
+                                            to='/addplayer'
+                                        >
+                                            Add Player
+                                        </Button>
                                     </Item>
                                 </Grid>
                                 <Grid item>
                                     <Item sx={styles.infoItem}>
-                                        Games
+                                        <Button
+                                            component={Link} 
+                                            to='/games'
+                                        >
+                                            Games
+                                        </Button>
                                     </Item>
                                 </Grid>
                                 <Grid item>
@@ -66,7 +85,12 @@ const Dashboard: React.FC = (): JSX.Element => {
                                 </Grid>
                                 <Grid item>
                                     <Item sx={styles.infoItem}>
-                                        Teams
+                                        <Button
+                                            component={Link} 
+                                            to='/teams'
+                                        >
+                                            Teams
+                                        </Button>
                                     </Item>
                                 </Grid>
                                 <Grid item>
@@ -91,7 +115,7 @@ const Dashboard: React.FC = (): JSX.Element => {
                                 </Grid>
                                 <Grid item>
                                     <Item sx={styles.managementItem}>
-                                        Scout Management
+                                        Scout Management (only admin)
                                     </Item>
                                 </Grid>
                             </Grid>

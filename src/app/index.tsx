@@ -1,20 +1,18 @@
 import { FC } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { useRoutes } from 'react-router-dom';
 
-// pages
-import Login from 'pages/login';
-import Dashboard from 'pages/dashboard';
+// routes
+import { routes } from 'routes';
 
 // styles
 import './index.css';
 
 const App: FC = (): JSX.Element => {
+  const routing = useRoutes(routes);
+
   return (
     <>
-        <Routes>
-          <Route path ='/' element={<Login />} />
-          <Route path ='/dashboard' element={<Dashboard />} />
-        </Routes>
+      {routing}
     </>
   );
 }

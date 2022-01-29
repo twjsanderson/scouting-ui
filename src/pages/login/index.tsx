@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 // styles
 import Button from '@mui/material/Button';
@@ -16,7 +16,7 @@ const Login: FC = (): JSX.Element => {
             <p>Technical issues</p>
             <Button
                 component={Link}
-                to='/Dashboard'
+                to='/dashboard'
                 color='primary' 
                 variant='contained'
             >

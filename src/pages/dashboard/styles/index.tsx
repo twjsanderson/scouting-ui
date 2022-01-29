@@ -5,6 +5,9 @@ export const styles = {
     paper: {
         margin: '1rem'
     },
+    heroTitle: {
+        padding: '1rem'
+    },
     actionItem: {
         backgroundColor: 'red'
     },
