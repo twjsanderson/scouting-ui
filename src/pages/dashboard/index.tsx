@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom';
 // components
 // import BasicCard from 'components/card';
 
-// features
-import NavBar from 'features/navbar';
-
 // styles
 import { styles } from './styles';
 import { styled } from '@mui/material/styles';
@@ -27,7 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
 const Dashboard: React.FC = (): JSX.Element => {
     return (
         <>
-            <NavBar />
+            {/* <NavBar /> */}
             <Box sx={styles.box}>
                 <Grid container justifyContent='center'>
                     {/* CTA */}
@@ -69,37 +66,22 @@ const Dashboard: React.FC = (): JSX.Element => {
                                     </Item>
                                 </Grid>
                                 <Grid item>
-                                    <Item sx={styles.infoItem}>
-                                        <Button
-                                            component={Link} 
-                                            to='/games'
-                                        >
-                                            Games
-                                        </Button>
-                                    </Item>
-                                </Grid>
-                                <Grid item>
-                                    <Item sx={styles.infoItem}>
-                                        Leagues
+                                    <Item sx={styles.actionItem}>
+                                        Your Players
                                     </Item>
                                 </Grid>
                                 <Grid item>
                                     <Item sx={styles.infoItem}>
                                         <Button
                                             component={Link} 
-                                            to='/teams'
+                                            to='/analytics'
                                         >
-                                            Teams
+                                            Analytics
                                         </Button>
                                     </Item>
                                 </Grid>
                                 <Grid item>
                                     <Item sx={styles.infoItem}>
-                                        Players
-                                    </Item>
-                                </Grid>
-                                <Grid item>
-                                    <Item sx={styles.scoutItem}>
                                         Reports
                                     </Item>
                                 </Grid>

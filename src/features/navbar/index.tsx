@@ -2,7 +2,7 @@ import React from 'react';
 
 
 // features
-import SideDrawer from 'features/drawer';
+import SideDrawer from 'components/drawer';
 
 
 // styles
@@ -24,7 +24,7 @@ interface Props {
 }
 
 
-const NavBar: React.FC<Props> = ({ classes }: Props): JSX.Element => {
+const Navbar: React.FC<Props> = ({ classes }: Props): JSX.Element => {
     const [state, setState] = React.useState(false);
 
     const toggleDrawer = (): void => setState(!state);
@@ -47,4 +47,4 @@ const NavBar: React.FC<Props> = ({ classes }: Props): JSX.Element => {
     );
 };
 
-export default withStyles(styles)(NavBar);
+export default withStyles(styles)(Navbar);
