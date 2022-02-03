@@ -1,6 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 // styles
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
@@ -8,9 +9,6 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import DatePicker from '@mui/lab/DatePicker';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 
 interface Values {
@@ -39,6 +37,7 @@ const RecordGame = () => {
     values,
     handleSubmit,
     handleChange,
+    setFieldValue,
     setSubmitting,
     resetForm 
   } = useFormik({
@@ -56,9 +55,9 @@ const RecordGame = () => {
       }, 1000);
     }
   });
+  console.log(values)
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
         <form onSubmit={handleSubmit}>
           <Grid item xs={12} sm={7} md={8}>
             {/* <Paper sx={styles.paper}> */}
@@ -87,48 +86,41 @@ const RecordGame = () => {
                     {
                       showNew && (
                         <>
-                          {/* <Typography variant='subtitle2'>
+                          <Typography variant='subtitle2'>
                             Choose League
                           </Typography>
-                          <Field
-                            component={TextField}
+                          <TextField
                             required
                             id='league'
                             label='League'
+                            onChange={(val) => setFieldValue('league', val)}
                           />
                           <Typography variant='subtitle2'>
                             Choose Arena
                           </Typography>
-                          <Field
-                            component={TextField}
+                          <TextField
                             required
                             id='arena'
                             label='Arena'
-                          /> */}
+                            onChange={(val) => setFieldValue('arena', val)}
+                          />
                           <Typography variant='subtitle2'>
                             Game Date
                           </Typography>
-                         
+                          <DatePicker
+                            name='date'
+                            selected={(values.date && new Date(values.date)) || null}
+                            onChange={(val) => setFieldValue('date', val)}
+                          />
                         </>
                       )
                     }
                     {
                       showUpdate && (
                         <> 
-                        <Typography variant='subtitle1'>
-                          Find Game
-                        </Typography>
-                        <Stack spacing={3}>
-                        <DatePicker
-                          label="Date&Time picker"
-                          value={values.date}
-                          onChange={handleChange}
-                          renderInput={(params: any) => {
-                            console.log(params)
-                            return <TextField />
-                          }}
-                        />
-                        </Stack>
+                          <Typography variant='subtitle1'>
+                            Find Game
+                          </Typography>
                         </>
                       )
                     }           
@@ -144,7 +136,6 @@ const RecordGame = () => {
               </Paper>
             </Grid>
         </form>
-        </LocalizationProvider>
   );
 };
 
