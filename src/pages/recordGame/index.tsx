@@ -4,12 +4,20 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 // styles
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 
+const style = {
+  width: 500,
+    height: 80,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'pink',
+}
 
 interface Values {
   league: string;
@@ -22,6 +30,9 @@ interface Values {
 const RecordGame = () => {
   const [showNew, setShowNew] = React.useState(false);
   const [showUpdate, setShowUpdate] = React.useState(false);
+
+  const [open, setOpen] = React.useState(false);
+  const [inputValue, setInputValue] = React.useState("");
 
   const handleShowNew = () => {
     setShowUpdate(false);
@@ -51,19 +62,18 @@ const RecordGame = () => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
         setSubmitting(false);
-        resetForm();
       }, 1000);
     }
   });
-  console.log(values)
-
+  // if isSubmitting disbale fields and buttons
+  // time limit incase of failure
   return (
         <form onSubmit={handleSubmit}>
-          <Grid item xs={12} sm={7} md={8}>
+          <Grid item xs={12} sm={7} md={8} style={{ margin: "auto", marginTop: '1rem' }}>
             {/* <Paper sx={styles.paper}> */}
             <Paper>
-              <Grid container direction='row'>
-                  <Grid item>
+              <Grid container direction='row' style={{ justifyContent: "center", alignItems: "center" }}>
+                  <Grid item className='style'  style={{ textAlign: "center", padding: '1rem' }}>
                     <Typography variant='subtitle1'>
                       Would you like to record a new game or update a saved game?
                     </Typography>
@@ -92,8 +102,7 @@ const RecordGame = () => {
                           <TextField
                             required
                             id='league'
-                            label='League'
-                            onChange={(val) => setFieldValue('league', val)}
+                            onChange={e => setFieldValue('league', e.target.value)}
                           />
                           <Typography variant='subtitle2'>
                             Choose Arena
@@ -101,9 +110,31 @@ const RecordGame = () => {
                           <TextField
                             required
                             id='arena'
-                            label='Arena'
-                            onChange={(val) => setFieldValue('arena', val)}
+                            onChange={e => setFieldValue('arena', e.target.value)}
                           />
+                          {/* <Autocomplete
+                            open={open}
+                            onOpen={() => {
+                              // only open when in focus and inputValue is not empty
+                              if (inputValue) {
+                                setOpen(true);
+                              }
+                            }}
+                            onClose={() => setOpen(false)}
+                            inputValue={inputValue}
+                            onInputChange={(e, value, reason) => {
+                              setInputValue(value);
+
+                              // only open when inputValue is not empty after the user typed something
+                              if (!value) {
+                                setOpen(false);
+                              }
+                            }}
+                            options={['test']}
+                            renderInput={(params) => (
+                              <TextField {...params} label="Combo box" variant="outlined" />
+                            )}
+                          /> */}
                           <Typography variant='subtitle2'>
                             Game Date
                           </Typography>
@@ -112,6 +143,14 @@ const RecordGame = () => {
                             selected={(values.date && new Date(values.date)) || null}
                             onChange={(val) => setFieldValue('date', val)}
                           />
+                          <Button
+                             sx={{ margin: '0.5rem' }}
+                             type='submit'
+                             color='primary' 
+                             variant='contained'
+                          >
+                            Record Game
+                          </Button>
                         </>
                       )
                     }
