@@ -1,7 +1,12 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { useSetRecoilState } from 'recoil';
+
+// atoms
+import { individualGameState } from 'state/atoms';
+
 // styles
 import Button from '@mui/material/Button';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -34,6 +39,8 @@ const RecordGame = () => {
   const [open, setOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState("");
 
+  const setIndividualGameState = useSetRecoilState(individualGameState);
+
   const handleShowNew = () => {
     setShowUpdate(false);
     setShowNew(!showNew);
@@ -50,6 +57,7 @@ const RecordGame = () => {
     handleChange,
     setFieldValue,
     setSubmitting,
+    isSubmitting,
     resetForm 
   } = useFormik({
     initialValues: {
@@ -58,123 +66,133 @@ const RecordGame = () => {
       date: null,
     },
     onSubmit: values => {
-      console.log(values)
+      setSubmitting(true)
       setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
+        setIndividualGameState({
+          id: 1, 
+          league: values.league,
+          arena: values.arena,
+          date: values.date
+        })
         setSubmitting(false);
-      }, 1000);
+      }, 1500)
+      // make api call to create new game and then setState with response (id, userId who created it)
     }
   });
-  // if isSubmitting disbale fields and buttons
+  // if isSubmitting disbale fields and buttons, use isSubmitting in forms to show loading icon
   // time limit incase of failure
+  console.log()
+  if (isSubmitting) {
+    return <h1>Loading...</h1>
+  }
   return (
-        <form onSubmit={handleSubmit}>
-          <Grid item xs={12} sm={7} md={8} style={{ margin: "auto", marginTop: '1rem' }}>
-            {/* <Paper sx={styles.paper}> */}
-            <Paper>
-              <Grid container direction='row' style={{ justifyContent: "center", alignItems: "center" }}>
-                  <Grid item className='style'  style={{ textAlign: "center", padding: '1rem' }}>
-                    <Typography variant='subtitle1'>
-                      Would you like to record a new game or update a saved game?
-                    </Typography>
-                    <Button 
-                      sx={{ margin: '0.5rem' }}
-                      onClick={handleShowNew}
-                      color='success' 
-                      variant='contained'
-                    >
-                      New Game
-                    </Button>
-                    <Button 
-                      sx={{ margin: '0.5rem' }}
-                      onClick={handleShowUpdate}
-                      color='primary' 
-                      variant='contained'
-                    >
-                      Update Game
-                    </Button>
-                    {
-                      showNew && (
-                        <>
-                          <Typography variant='subtitle2'>
-                            Choose League
-                          </Typography>
-                          <TextField
-                            required
-                            id='league'
-                            onChange={e => setFieldValue('league', e.target.value)}
-                          />
-                          <Typography variant='subtitle2'>
-                            Choose Arena
-                          </Typography>
-                          <TextField
-                            required
-                            id='arena'
-                            onChange={e => setFieldValue('arena', e.target.value)}
-                          />
-                          {/* <Autocomplete
-                            open={open}
-                            onOpen={() => {
-                              // only open when in focus and inputValue is not empty
-                              if (inputValue) {
-                                setOpen(true);
-                              }
-                            }}
-                            onClose={() => setOpen(false)}
-                            inputValue={inputValue}
-                            onInputChange={(e, value, reason) => {
-                              setInputValue(value);
+    <form onSubmit={handleSubmit}>
+      <Grid item xs={12} sm={7} md={8} style={{ margin: "auto", marginTop: '1rem' }}>
+        {/* <Paper sx={styles.paper}> */}
+        <Paper>
+          <Grid container direction='row' style={{ justifyContent: "center", alignItems: "center" }}>
+              <Grid item className='style'  style={{ textAlign: "center", padding: '1rem' }}>
+                <Typography variant='subtitle1'>
+                  Would you like to record a new game or update a saved game?
+                </Typography>
+                <Button 
+                  sx={{ margin: '0.5rem' }}
+                  onClick={handleShowNew}
+                  color='success' 
+                  variant='contained'
+                >
+                  New Game
+                </Button>
+                <Button 
+                  sx={{ margin: '0.5rem' }}
+                  onClick={handleShowUpdate}
+                  color='primary' 
+                  variant='contained'
+                >
+                  Update Game
+                </Button>
+                {
+                  showNew && (
+                    <>
+                      <Typography variant='subtitle2'>
+                        Choose League
+                      </Typography>
+                      <TextField
+                        required
+                        id='league'
+                        onChange={e => setFieldValue('league', e.target.value)}
+                      />
+                      <Typography variant='subtitle2'>
+                        Choose Arena
+                      </Typography>
+                      <TextField
+                        required
+                        id='arena'
+                        onChange={e => setFieldValue('arena', e.target.value)}
+                      />
+                      {/* <Autocomplete
+                        open={open}
+                        onOpen={() => {
+                          // only open when in focus and inputValue is not empty
+                          if (inputValue) {
+                            setOpen(true);
+                          }
+                        }}
+                        onClose={() => setOpen(false)}
+                        inputValue={inputValue}
+                        onInputChange={(e, value, reason) => {
+                          setInputValue(value);
 
-                              // only open when inputValue is not empty after the user typed something
-                              if (!value) {
-                                setOpen(false);
-                              }
-                            }}
-                            options={['test']}
-                            renderInput={(params) => (
-                              <TextField {...params} label="Combo box" variant="outlined" />
-                            )}
-                          /> */}
-                          <Typography variant='subtitle2'>
-                            Game Date
-                          </Typography>
-                          <DatePicker
-                            name='date'
-                            selected={(values.date && new Date(values.date)) || null}
-                            onChange={(val) => setFieldValue('date', val)}
-                          />
-                          <Button
-                             sx={{ margin: '0.5rem' }}
-                             type='submit'
-                             color='primary' 
-                             variant='contained'
-                          >
-                            Record Game
-                          </Button>
-                        </>
-                      )
-                    }
-                    {
-                      showUpdate && (
-                        <> 
-                          <Typography variant='subtitle1'>
-                            Find Game
-                          </Typography>
-                        </>
-                      )
-                    }           
-                    {/* <Button
-                      color='info'
-                      variant='contained'
-                      type='submit'
-                    >
-                      Submit
-                    </Button> */}
-                  </Grid>
-                </Grid>
-              </Paper>
+                          // only open when inputValue is not empty after the user typed something
+                          if (!value) {
+                            setOpen(false);
+                          }
+                        }}
+                        options={['test']}
+                        renderInput={(params) => (
+                          <TextField {...params} label="Combo box" variant="outlined" />
+                        )}
+                      /> */}
+                      <Typography variant='subtitle2'>
+                        Game Date
+                      </Typography>
+                      <DatePicker
+                        name='date'
+                        selected={(values.date && new Date(values.date)) || null}
+                        onChange={(val) => setFieldValue('date', val)}
+                      />
+                      <Button
+                          sx={{ margin: '0.5rem' }}
+                          type='submit'
+                          color='primary' 
+                          variant='contained'
+                      >
+                        Record New Game
+                      </Button>
+                    </>
+                  )
+                }
+                {
+                  showUpdate && (
+                    <> 
+                      <Typography variant='subtitle1'>
+                        Find Game
+                      </Typography>
+                    </>
+                  )
+                }           
+                {/* <Button
+                  color='info'
+                  variant='contained'
+                  type='submit'
+                >
+                  Submit
+                </Button> */}
+              </Grid>
             </Grid>
-        </form>
+          </Paper>
+        </Grid>
+    </form>
   );
 };
 

@@ -10,7 +10,6 @@ import RecordGame from 'pages/recordGame';
 import AddPlayer from 'pages/addPlayer';
 
 
-
 export const routes = [
     { path: '/', element: <Login /> },
     {
