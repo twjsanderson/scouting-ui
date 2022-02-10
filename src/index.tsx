@@ -2,11 +2,14 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './app';
+import { RecoilRoot } from 'recoil';
 import reportWebVitals from './reportWebVitals';
 
 const element = (
   <BrowserRouter>
-    <App />
+    <RecoilRoot>
+      <App />
+    </RecoilRoot>
   </BrowserRouter>
 );
 

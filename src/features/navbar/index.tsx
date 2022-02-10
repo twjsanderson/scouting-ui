@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useNavigate, useLocation } from 'react-router-dom';
 
 // features
 import SideDrawer from 'components/drawer';
@@ -26,6 +26,10 @@ interface Props {
 
 const Navbar: React.FC<Props> = ({ classes }: Props): JSX.Element => {
     const [state, setState] = React.useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+     const atDashboard = () => location.pathname === '/dashboard';
 
     const toggleDrawer = (): void => setState(!state);
 
@@ -40,6 +44,15 @@ const Navbar: React.FC<Props> = ({ classes }: Props): JSX.Element => {
                     <Typography variant="h6" className={classes.title}>
                         ProScout
                     </Typography>
+                    {
+                        !atDashboard() && 
+                        <Button 
+                            color='inherit'
+                            onClick={() => navigate(-1)}
+                        > 
+                            Back
+                        </Button>
+                    }
                     <Button color="inherit">Logout</Button>
                 </Toolbar>
             </AppBar>

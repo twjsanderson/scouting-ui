@@ -1,19 +1,23 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 // atoms
-import { individualGameState } from 'state/atoms';
+import { individualGameAtom } from './state';
 
 // styles
+import './index.css';
 import Button from '@mui/material/Button';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+
+import { DesktopDatePicker as Picker } from '@mui/lab';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 const style = {
   width: 500,
@@ -24,11 +28,6 @@ const style = {
     backgroundColor: 'pink',
 }
 
-interface Values {
-  league: string;
-  arena: string;
-}
-
 // use is submitting to show Loading indicator
 // include optional address field
 
@@ -37,9 +36,10 @@ const RecordGame = () => {
   const [showUpdate, setShowUpdate] = React.useState(false);
 
   const [open, setOpen] = React.useState(false);
-  const [inputValue, setInputValue] = React.useState("");
+  const [inputValue, setInputValue] = React.useState('');
 
-  const setIndividualGameState = useSetRecoilState(individualGameState);
+  const [gameState, setGameState] = useRecoilState(individualGameAtom);
+  const navigate = useNavigate();
 
   const handleShowNew = () => {
     setShowUpdate(false);
@@ -66,32 +66,35 @@ const RecordGame = () => {
       date: null,
     },
     onSubmit: values => {
-      setSubmitting(true)
-      setTimeout(() => {
-        setIndividualGameState({
-          id: 1, 
-          league: values.league,
-          arena: values.arena,
-          date: values.date
-        })
-        setSubmitting(false);
-      }, 1500)
+      // setSubmitting(true)
+      // setTimeout(() => {
+        
+      //   setSubmitting(false);
+      // }, 1500)
+      const id = 1;
+      setGameState({
+        id: id,
+        league: values.league,
+        arena: values.arena,
+        date: values.date
+      })
+      navigate(`/recordgame/${id}`);
       // make api call to create new game and then setState with response (id, userId who created it)
     }
   });
   // if isSubmitting disbale fields and buttons, use isSubmitting in forms to show loading icon
   // time limit incase of failure
-  console.log()
-  if (isSubmitting) {
-    return <h1>Loading...</h1>
-  }
+  console.log(gameState)
+  // if (isSubmitting) {
+  //   return <h1>Loading...</h1>
+  // }
   return (
     <form onSubmit={handleSubmit}>
-      <Grid item xs={12} sm={7} md={8} style={{ margin: "auto", marginTop: '1rem' }}>
+      <Grid item xs={12} sm={7} md={8} style={{ margin: 'auto', marginTop: '1rem' }}>
         {/* <Paper sx={styles.paper}> */}
         <Paper>
-          <Grid container direction='row' style={{ justifyContent: "center", alignItems: "center" }}>
-              <Grid item className='style'  style={{ textAlign: "center", padding: '1rem' }}>
+          <Grid container direction='row' style={{ justifyContent: 'center', alignItems: 'center' }}>
+              <Grid item className='style' style={{ textAlign: 'center', padding: '1rem' }}>
                 <Typography variant='subtitle1'>
                   Would you like to record a new game or update a saved game?
                 </Typography>
@@ -150,22 +153,26 @@ const RecordGame = () => {
                         }}
                         options={['test']}
                         renderInput={(params) => (
-                          <TextField {...params} label="Combo box" variant="outlined" />
+                          <TextField {...params} label='Combo box' variant='outlined' />
                         )}
                       /> */}
                       <Typography variant='subtitle2'>
                         Game Date
                       </Typography>
-                      <DatePicker
-                        name='date'
-                        selected={(values.date && new Date(values.date)) || null}
-                        onChange={(val) => setFieldValue('date', val)}
-                      />
+                      <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <Picker 
+                          inputFormat='MM/dd/yyyy'
+                          value={values.date}
+                          onChange={(val) => setFieldValue('date', val)}
+                          renderInput={(params) => <TextField {...params} />}
+                        />
+                      </LocalizationProvider>
+                      <br />
                       <Button
-                          sx={{ margin: '0.5rem' }}
-                          type='submit'
-                          color='primary' 
-                          variant='contained'
+                        sx={{ margin: '1rem' }}
+                        type='submit'
+                        color='primary' 
+                        variant='contained'
                       >
                         Record New Game
                       </Button>
