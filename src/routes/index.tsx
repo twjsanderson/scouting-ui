@@ -14,7 +14,7 @@ import GameForm from 'features/navbar/forms/gameForm';
 
 
 export const appRoutes: RouteObject[] = [
-    { path: '/', element: <Login /> },
+    {   path: '/', element: <Login />   },
     {
         path: '/',
         element: <MainLayout />,
@@ -23,10 +23,9 @@ export const appRoutes: RouteObject[] = [
             { path: 'dashboard', element: <Dashboard /> },
             { path: 'recordgame', element: <RecordGame /> },
             { path: 'recordgame/:id', element: <GameForm /> },
-              
             // { path: 'addplayer', element: <AddPlayer /> },
             // { path: 'games', element: <Games /> },
-        ],
+        ]
     },
-    { path: "*", element: <Navigate to="/" /> },
+    {   path: "*", element: <Navigate to="/" />  },
 ];
